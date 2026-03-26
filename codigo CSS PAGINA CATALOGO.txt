@@ -1,0 +1,1356 @@
+/* ==========================================================================
+   COLIHUE AVENTURA — CSS OPTIMIZADO v2.0
+   Correcciones: errores de sintaxis, rendimiento mobile, estética mejorada
+   ========================================================================== */
+
+
+/* ==========================================================================
+   0. VARIABLES GLOBALES (Fácil de mantener y modificar)
+   ========================================================================== */
+:root {
+    --ca-naranja: #ff6600;
+    --ca-naranja-glow: rgba(255, 102, 0, 0.3);
+    --ca-naranja-soft: rgba(255, 102, 0, 0.15);
+    --ca-verde-wa: #25d366;
+    --ca-negro: #0a0a0a;
+    --ca-gris-oscuro: #111111;
+    --ca-gris-borde: #2a2a2a;
+    --ca-gris-texto: #999;
+    --ca-blanco: #ffffff;
+    --ca-radio: 10px;
+    --ca-transicion: 0.3s ease;
+}
+
+
+/* ==========================================================================
+   1. FONDO GLOBAL — Fibra de carbono optimizada
+   ========================================================================== */
+body {
+    background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'), 
+                      linear-gradient(180deg, var(--ca-negro) 0%, var(--ca-gris-oscuro) 100%) !important;
+    background-attachment: scroll !important; /* CAMBIO: "fixed" causa repaint constante en mobile */
+    background-color: var(--ca-negro) !important;
+}
+
+/* Solo en desktop activamos el fondo fijo (no afecta rendimiento) */
+@media (min-width: 769px) {
+    body {
+        background-attachment: fixed !important;
+    }
+}
+
+.main-page-wrapper, 
+.wrapper, 
+.vc_row[data-vc-full-width] {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+
+/* ==========================================================================
+   2. TEXTO DEL HEADER — Top bar
+   ========================================================================== */
+.whb-top-bar {    
+    position: relative !important;
+}
+
+.whb-top-bar .whb-col-center {    
+    position: absolute !important;    
+    left: 50% !important;    
+    top: 50% !important;    
+    transform: translate(-50%, -50%) !important;    
+    z-index: 10001 !important;    
+    white-space: nowrap !important;
+}
+
+.whb-top-bar .wd-header-text {    
+    color: var(--ca-naranja) !important;    
+    font-weight: 800;    
+    text-transform: uppercase;    
+    letter-spacing: 2px;    
+    text-shadow: 0 0 12px rgba(255, 90, 0, 0.5);
+}
+
+
+/* ==========================================================================
+   3. HEADER PRINCIPAL — Más limpio, con mejor contraste
+   ========================================================================== */
+.whb-main-header {
+    background-color: rgba(14, 14, 14, 0.95) !important; 
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.8) !important;
+    border-bottom: 1px solid var(--ca-gris-borde) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    z-index: 100;
+}
+
+.site-logo img, .wd-logo img {
+    margin-bottom: 4px;
+    display: block;
+}
+
+/* Navegación — Links más legibles */
+.whb-main-header .wd-nav > li > a {
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+    font-size: 13px !important;
+    transition: color var(--ca-transicion) !important;
+}
+
+.whb-main-header .wd-nav > li > a:hover {
+    color: var(--ca-naranja) !important;
+}
+
+/* Línea naranja bajo item activo */
+.whb-main-header .wd-nav > li.current-menu-item > a,
+.whb-main-header .wd-nav > li.current-menu-ancestor > a {
+    color: var(--ca-naranja) !important;
+    position: relative !important;
+}
+
+.whb-main-header .wd-nav > li.current-menu-item > a::after,
+.whb-main-header .wd-nav > li.current-menu-ancestor > a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 20%;
+    right: 20%;
+    height: 2px;
+    background: var(--ca-naranja);
+    border-radius: 2px;
+}
+
+/* Ícono de carrito — Mejor visibilidad */
+.whb-main-header .wd-tools-element > a {
+    transition: color var(--ca-transicion) !important;
+}
+
+.whb-main-header .wd-tools-element > a:hover {
+    color: var(--ca-naranja) !important;
+}
+
+
+/* ==========================================================================
+   4. BALÍN CON ESTELA — Optimizado para mobile
+   ========================================================================== */
+.pe-container {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    overflow: hidden; 
+    margin: 20px 0;
+}
+
+.pe-bullet-assembly {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: shootBullet 8s linear infinite;
+    /* REMOVIDO: will-change: left — consume GPU permanentemente */
+}
+
+.pe-trail-flames {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px; 
+    height: 3px; 
+    background: linear-gradient(to right, transparent 0%, rgba(255, 102, 0, 0.6) 60%, var(--ca-naranja) 100%);
+    box-shadow: 0 0 10px 2px var(--ca-naranja); 
+    margin-right: -1px; 
+    border-radius: 5px 0 0 5px;
+    animation: prolijoTrail 8s linear infinite;
+    /* REMOVIDO: will-change duplicado */
+}
+
+.pe-pellet-solid {
+    display: flex;
+    align-items: center;
+    filter: drop-shadow(3px 5px 3px rgba(0, 0, 0, 0.6)); 
+}
+
+.pe-skirt {
+    width: 12px;
+    height: 16px;
+    background: linear-gradient(to bottom, #6a6a6a 0%, #c5c5c5 30%, #3a3a3a 75%, #111 100%);
+    clip-path: polygon(0% 0%, 100% 20%, 100% 80%, 0% 100%); 
+}
+
+.pe-waist {
+    width: 4px;
+    height: 10px; 
+    background: linear-gradient(to bottom, #555 0%, #aaa 30%, #333 75%, #111 100%);
+}
+
+.pe-head {
+    width: 9px; 
+    height: 16px;
+    background: linear-gradient(to bottom, #7a7a7a 0%, #d5d5d5 30%, #4a4a4a 75%, #222 100%);
+    border-radius: 0 8px 8px 0; 
+}
+
+@keyframes shootBullet {
+    0%   { left: -160px; } 
+    85%  { left: 100%; opacity: 1; } 
+    86%  { left: 100%; opacity: 0; }
+    100% { left: 100%; opacity: 0; }
+}
+
+@keyframes prolijoTrail {
+    0%   { width: 0px; opacity: 0; }
+    5%   { width: 150px; opacity: 1; } 
+    75%  { width: 150px; opacity: 1; } 
+    82%  { width: 0px; opacity: 0; }
+    100% { width: 0px; opacity: 0; }
+}
+
+/* En mobile: desactivar animación del balín para ahorrar batería */
+@media (max-width: 768px) {
+    .pe-container {
+        display: none;
+    }
+}
+
+
+/* ==========================================================================
+   5. TARJETAS DE PRODUCTOS — Rediseño premium
+   ========================================================================== */
+.product-grid-item, 
+.wd-product {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid var(--ca-gris-borde) !important;
+    border-radius: var(--ca-radio) !important;
+    padding: 16px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+    transition: transform var(--ca-transicion), 
+                box-shadow var(--ca-transicion), 
+                border-color var(--ca-transicion) !important;
+    position: relative;
+    overflow: hidden !important;
+}
+
+/* Línea naranja sutil arriba de cada tarjeta */
+.product-grid-item::before,
+.wd-product::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ca-naranja), transparent);
+    opacity: 0;
+    transition: opacity var(--ca-transicion);
+}
+
+.product-grid-item:hover,
+.wd-product:hover {
+    transform: translateY(-6px) !important;
+    border-color: var(--ca-naranja) !important;
+    box-shadow: 0 12px 30px rgba(255, 102, 0, 0.15),
+                0 4px 15px rgba(0, 0, 0, 0.5) !important;
+    z-index: 10;
+}
+
+.product-grid-item:hover::before,
+.wd-product:hover::before {
+    opacity: 1;
+}
+
+/* Imagen del producto — Mejor presentación */
+.product-grid-item .product-image-link img,
+.wd-product .product-image-link img {
+    border-radius: 8px !important;
+    transition: transform 0.4s ease !important;
+}
+
+.product-grid-item:hover .product-image-link img,
+.wd-product:hover .product-image-link img {
+    transform: scale(1.03) !important;
+}
+
+/* Nombre del producto */
+.product-grid-item .wd-entities-title,
+.wd-product .wd-entities-title {
+    color: var(--ca-blanco) !important;
+    font-weight: 700 !important;
+    margin-top: 12px !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+}
+
+/* Precio — Más prominente */
+.product-grid-item .price,
+.wd-product .price {
+    color: var(--ca-naranja) !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    margin-top: 8px !important;
+}
+
+/* Precio tachado (ofertas) */
+.product-grid-item .price del,
+.wd-product .price del {
+    color: #666 !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+}
+
+/* Badges Hot/Oferta — Rediseño sutil */
+.product-grid-item .wd-product-badges .onsale,
+.wd-product .wd-product-badges .onsale {
+    background: var(--ca-naranja) !important;
+    color: #000 !important;
+    font-weight: 800 !important;
+    font-size: 11px !important;
+    letter-spacing: 1px !important;
+    border-radius: 6px !important;
+    padding: 4px 10px !important;
+    text-transform: uppercase !important;
+}
+
+.product-grid-item .wd-product-badges .product-label,
+.wd-product .wd-product-badges .product-label {
+    border-radius: 6px !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+}
+
+/* Botón Añadir al Carrito / Seleccionar opciones */
+.product-grid-item .add_to_cart_button,
+.product-grid-item .product_type_variable,
+.wd-product .add_to_cart_button,
+.wd-product .product_type_variable {
+    background: transparent !important;
+    border: 1.5px solid var(--ca-naranja) !important;
+    color: var(--ca-naranja) !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    transition: all var(--ca-transicion) !important;
+    padding: 10px 16px !important;
+}
+
+.product-grid-item .add_to_cart_button:hover,
+.product-grid-item .product_type_variable:hover,
+.wd-product .add_to_cart_button:hover,
+.wd-product .product_type_variable:hover {
+    background: var(--ca-naranja) !important;
+    color: #000 !important;
+}
+
+/* Categoría del producto — Más discreta */
+.product-grid-item .wd-product-cats,
+.wd-product .wd-product-cats {
+    font-size: 11px !important;
+    color: #666 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+
+/* ==========================================================================
+   5b. CARRUSEL DE PRODUCTOS — Fix precios y botones cortados
+   ========================================================================== */
+
+/* --- SOLUCIÓN PRINCIPAL: El carrusel de Woodmart usa overflow:hidden --- */
+/* Necesitamos que el contenedor NO corte en Y (vertical) */
+
+/* El wrapper principal del carrusel: clip solo horizontal */
+.wd-carousel-container {
+    overflow: visible !important;
+    padding-bottom: 25px !important; /* Espacio para que no corte abajo */
+}
+
+/* El track de slides */
+.wd-carousel-wrap,
+.wd-carousel-container .wd-carousel-wrap,
+.wd-carousel,
+.products.wd-carousel {
+    overflow: visible !important;
+}
+
+/* Si Woodmart usa Swiper o similar */
+.wd-carousel-container .swiper,
+.wd-carousel-container .swiper-wrapper,
+.wd-carousel-container .swiper-slide {
+    overflow: visible !important;
+}
+
+/* OWL Carousel (Woodmart puede usar esto) */
+.wd-carousel-container .owl-stage-outer {
+    overflow: visible !important;
+    padding-bottom: 15px !important;
+}
+
+.wd-carousel-container .owl-stage {
+    overflow: visible !important;
+}
+
+.wd-carousel-container .owl-item {
+    overflow: visible !important;
+}
+
+/* Cada tarjeta dentro del carrusel necesita espacio */
+.wd-carousel .product-grid-item,
+.wd-carousel .wd-product,
+.owl-item .product-grid-item,
+.swiper-slide .product-grid-item {
+    overflow: visible !important;
+    padding-bottom: 18px !important;
+    margin-bottom: 8px !important;
+    min-height: auto !important; /* Que crezca con su contenido */
+}
+
+/* --- PRECIO: Siempre visible --- */
+.product-grid-item .price,
+.wd-product .price {
+    padding-bottom: 8px !important;
+    display: block !important;
+    position: relative !important;
+    z-index: 2 !important;
+    overflow: visible !important;
+    clip: auto !important;
+    -webkit-clip-path: none !important;
+    clip-path: none !important;
+    white-space: nowrap !important;
+}
+
+/* --- BOTÓN CARRITO: Siempre visible y con espacio --- */
+.product-grid-item .wd-add-btn,
+.product-grid-item .add_to_cart_button,
+.product-grid-item .product_type_variable,
+.wd-product .wd-add-btn,
+.wd-product .add_to_cart_button,
+.wd-product .product_type_variable {
+    position: relative !important;
+    z-index: 2 !important;
+    margin-top: 10px !important;
+    margin-bottom: 6px !important;
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    max-height: none !important;
+    clip: auto !important;
+}
+
+/* El contenedor del botón no debe ocultarse nunca */
+.product-grid-item .wd-buttons,
+.wd-product .wd-buttons,
+.product-grid-item .product-element-bottom,
+.wd-product .product-element-bottom,
+.product-grid-item .wd-action-btn,
+.wd-product .wd-action-btn,
+.product-grid-item .wrap-add-to-cart,
+.wd-product .wrap-add-to-cart,
+.product-grid-item .hover-content,
+.wd-product .hover-content {
+    overflow: visible !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    height: auto !important;
+    max-height: none !important;
+    transform: none !important; /* Evitar que Woodmart lo oculte con translate */
+    display: block !important;
+}
+
+/* Woodmart a veces oculta botones con hover — forzar visible siempre */
+.product-grid-item .wd-bottom-actions,
+.wd-product .wd-bottom-actions {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    position: relative !important;
+    overflow: visible !important;
+}
+
+/* La paginación de puntos necesita espacio propio */
+.wd-carousel-container .owl-dots,
+.wd-carousel-container .wd-slider-dots,
+.wd-carousel-container .swiper-pagination {
+    padding-top: 20px !important;
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+/* El contenedor padre de la sección de productos destacados */
+.section-id-destacados,
+.wd-products-element,
+.wd-carousel-element {
+    overflow: visible !important;
+    padding-bottom: 15px !important;
+}
+
+/* Fix para la fila de WPBakery que contiene el carrusel */
+.wpb_row:has(.wd-carousel-container),
+.vc_row:has(.wd-carousel-container) {
+    overflow: visible !important;
+}
+
+/* También el column wrapper */
+.wpb_column:has(.wd-carousel-container),
+.vc_column-inner:has(.wd-carousel-container) {
+    overflow: visible !important;
+}
+
+
+/* ==========================================================================
+   6. MARCAS EN EL CARRUSEL — Animación premium
+   ========================================================================== */
+
+/* Contenedor del carrusel de marcas */
+.brands-widget .wd-carousel-wrap,
+.woodmart-brands-widget .wd-carousel-wrap,
+.widget_brands .wd-carousel-wrap,
+.wd-brands .wd-carousel-wrap {
+    overflow: visible !important;
+}
+
+/* Logos de marca — Gris por defecto, se iluminan al hover */
+.woodmart-carousel-item img,
+.brands-widget img,
+.wd-brands img {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid var(--ca-gris-borde) !important;
+    border-radius: 10px !important;
+    padding: 14px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    filter: grayscale(100%) brightness(0.6) !important;
+}
+
+.woodmart-carousel-item img:hover,
+.brands-widget img:hover,
+.wd-brands img:hover {
+    border-color: var(--ca-naranja) !important;
+    transform: scale(1.12) translateY(-6px) !important;
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.6),
+                0 0 25px var(--ca-naranja-glow),
+                inset 0 0 0 1px rgba(255, 102, 0, 0.1) !important;
+    filter: grayscale(0%) brightness(1.1) !important;
+    background: rgba(255, 102, 0, 0.05) !important;
+}
+
+/* Contenedor de cada marca — Para efecto shine */
+.woodmart-carousel-item,
+.brands-widget .wd-carousel-item,
+.wd-brands .wd-carousel-item {
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 10px !important;
+}
+
+/* Efecto de brillo diagonal que recorre las marcas */
+.woodmart-carousel-item::after,
+.brands-widget .wd-carousel-item::after,
+.wd-brands .wd-carousel-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        105deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.03) 30%, 
+        rgba(255, 102, 0, 0.08) 45%, 
+        rgba(255, 255, 255, 0.12) 50%, 
+        rgba(255, 102, 0, 0.08) 55%, 
+        rgba(255, 255, 255, 0.03) 70%, 
+        transparent 100%
+    );
+    transform: skewX(-20deg);
+    pointer-events: none;
+    z-index: 2;
+    animation: marcaShine 5s ease-in-out infinite;
+    animation-delay: calc(var(--item-index, 0) * 0.4s);
+}
+
+/* Animación hover: el brillo cruza rápido */
+.woodmart-carousel-item:hover::after,
+.brands-widget .wd-carousel-item:hover::after,
+.wd-brands .wd-carousel-item:hover::after {
+    animation: marcaShineHover 0.6s ease-out forwards;
+}
+
+/* Línea naranja inferior que aparece al hover */
+.woodmart-carousel-item::before,
+.brands-widget .wd-carousel-item::before,
+.wd-brands .wd-carousel-item::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    height: 2px;
+    background: var(--ca-naranja);
+    z-index: 3;
+    transition: left 0.4s ease, right 0.4s ease;
+    border-radius: 2px;
+}
+
+.woodmart-carousel-item:hover::before,
+.brands-widget .wd-carousel-item:hover::before,
+.wd-brands .wd-carousel-item:hover::before {
+    left: 15%;
+    right: 15%;
+}
+
+@keyframes marcaShine {
+    0%, 100% { left: -100%; opacity: 0; }
+    5%       { opacity: 0.8; }
+    40%      { left: 200%; opacity: 0.8; }
+    45%      { opacity: 0; }
+    46%      { left: -100%; }
+}
+
+@keyframes marcaShineHover {
+    0%   { left: -100%; opacity: 1; }
+    100% { left: 200%; opacity: 0; }
+}
+
+/* Título "NUESTRAS MARCAS" — Estilo técnico */
+.brands-widget .widget-title,
+.wd-brands .widget-title {
+    text-align: center !important;
+    font-size: 13px !important;
+    letter-spacing: 4px !important;
+    color: #555 !important;
+    text-transform: uppercase !important;
+    margin-bottom: 30px !important;
+    position: relative !important;
+    padding-bottom: 12px !important;
+}
+
+/* Línea decorativa debajo del título */
+.brands-widget .widget-title::after,
+.wd-brands .widget-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: var(--ca-naranja);
+    border-radius: 2px;
+}
+
+
+/* ==========================================================================
+   7. SLIDER MARQUEE DE RIFLES (Efecto Lupa) — GPU optimizado
+   ========================================================================== */
+.pe-lupa-slider {
+    width: 100%;
+    overflow: hidden;
+    padding: 40px 0 10px;
+    position: relative;
+    background: transparent;
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
+}
+
+.pe-lupa-track {
+    display: flex;
+    flex-wrap: nowrap !important;
+    width: max-content;
+    gap: 40px;
+    transform: translate3d(0, 0, 0);
+    animation: marqueeLupa 60s linear infinite;
+    /* REMOVIDO: will-change permanente */
+}
+
+.pe-rifle-card {
+    flex: 0 0 130px;
+    text-align: center;
+    text-decoration: none !important;
+    transition: transform 0.4s ease-out; 
+    display: block;
+    backface-visibility: hidden;
+}
+
+.pe-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #000;
+    border: 2px solid var(--ca-naranja);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 15px var(--ca-naranja-glow);
+    transition: transform var(--ca-transicion), border-color var(--ca-transicion), box-shadow var(--ca-transicion);
+}
+
+.pe-rifle-card:hover .pe-circle, 
+.pe-rifle-card:active .pe-circle {
+    transform: scale(1.1);
+    border-color: var(--ca-blanco);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 1), 0 0 25px rgba(255, 102, 0, 0.6);
+}
+
+.pe-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pe-rifle-card span {
+    color: var(--ca-blanco);
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}
+
+@keyframes marqueeLupa {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (max-width: 768px) {
+    .pe-lupa-slider {
+        padding: 20px 0 0;
+    }
+    
+    .pe-lupa-slider-row, 
+    .vc_row.wpb_row.pe-lupa-slider-container {
+        margin-bottom: 0 !important;
+    }
+
+    .pe-rifle-card { flex: 0 0 115px; }
+    .pe-circle { width: 105px; height: 105px; }
+    
+    .pe-lupa-track { 
+        animation-duration: 35s; 
+        gap: 25px; 
+    }
+}
+
+
+/* ==========================================================================
+   8. BUSCADOR — Sin oscurecimiento
+   ========================================================================== */
+.wd-close-side, 
+.wd-search-opened .wd-close-side,
+.wd-opened .wd-close-side {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.wd-search-opened .main-page-wrapper,
+.wd-search-opened .header-banner {
+    opacity: 1 !important;
+    filter: none !important;
+}
+
+body.wd-search-opened {
+    background-color: transparent !important;
+}
+
+.wd-search-full-screen {
+    background-color: rgba(10, 10, 10, 0.95) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+
+/* ==========================================================================
+   9. FOOTER — Fibra de carbono + estructura limpia
+   ========================================================================== */
+.footer-container {
+    background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'), 
+                      linear-gradient(180deg, var(--ca-negro) 0%, var(--ca-gris-oscuro) 100%) !important;
+    background-color: var(--ca-negro) !important;
+    background-repeat: repeat !important;
+    border-top: 2px solid #333 !important;
+}
+
+/* Lista de vendedores */
+.vendedores-footer p {
+    margin-bottom: 18px !important;
+    border-left: 3px solid var(--ca-verde-wa);
+    padding-left: 15px !important;
+    line-height: 1.2 !important;
+}
+
+.vendedores-footer strong {
+    color: var(--ca-blanco) !important;
+    font-size: 13px !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.vendedores-footer a {
+    color: var(--ca-verde-wa) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    transition: all var(--ca-transicion);
+}
+
+.vendedores-footer a:hover {
+    color: var(--ca-blanco) !important;
+    padding-left: 5px;
+}
+
+/* Títulos de sección del footer */
+.footer-container .wpb_heading, 
+.footer-container .widget-title {
+    color: var(--ca-blanco) !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    border-bottom: 3px solid var(--ca-verde-wa) !important;
+    display: inline-block !important;
+    margin-bottom: 25px !important;
+    padding-bottom: 5px !important;
+}
+
+
+/* ==========================================================================
+   10. TARJETA DE UBICACIÓN
+   ========================================================================== */
+.card-ubicacion {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    border-left: 4px solid var(--ca-verde-wa);
+}
+
+.etiqueta-pro {
+    color: #888 !important;
+    font-size: 11px !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.ciudad-footer {
+    color: var(--ca-blanco) !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    margin-bottom: 10px !important;
+}
+
+.direccion-footer {
+    color: #ccc !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 20px !important;
+}
+
+.card-ubicacion .btn-google-maps {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: var(--ca-verde-wa) !important;
+    color: #000 !important;
+    width: 100% !important;
+    height: 50px !important;
+    padding: 0 !important;
+    margin-top: 15px !important;
+    border-radius: 5px !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    line-height: 1 !important;
+    border: none !important;
+    transition: all var(--ca-transicion);
+}
+
+.card-ubicacion .btn-google-maps:hover {
+    background-color: var(--ca-blanco) !important;
+    color: #000 !important;
+    transform: scale(1.02);
+}
+
+
+/* ==========================================================================
+   11. ENLACES ÚTILES DEL FOOTER
+   ========================================================================== */
+.enlaces-utiles-footer {
+    border-left: 4px solid var(--ca-verde-wa);
+    padding-left: 15px;
+}
+
+.titulo-columna {
+    color: var(--ca-blanco) !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    margin-bottom: 15px !important;
+    letter-spacing: 1px;
+}
+
+.lista-enlaces {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.lista-enlaces li {
+    margin-bottom: 12px !important;
+}
+
+.lista-enlaces a {
+    color: #ccc !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all var(--ca-transicion);
+}
+
+.lista-enlaces a i {
+    font-size: 14px;
+    color: var(--ca-verde-wa);
+}
+
+.lista-enlaces a:hover {
+    color: var(--ca-verde-wa) !important;
+    padding-left: 8px;
+}
+
+
+/* ==========================================================================
+   12. CHECKOUT — Optimizado (sin cambios funcionales)
+   ========================================================================== */
+.woocommerce-checkout .woocommerce-billing-fields .input-text,
+.woocommerce-checkout .woocommerce-billing-fields input[type="text"],
+.woocommerce-checkout .woocommerce-billing-fields input[type="email"],
+.woocommerce-checkout .woocommerce-billing-fields input[type="tel"],
+.woocommerce-checkout .woocommerce-billing-fields input[type="number"],
+.woocommerce-checkout .woocommerce-billing-fields input[type="password"],
+.woocommerce-checkout .woocommerce-billing-fields select,
+.woocommerce-checkout .woocommerce-shipping-fields .input-text,
+.woocommerce-checkout .woocommerce-shipping-fields input[type="text"],
+.woocommerce-checkout .woocommerce-shipping-fields input[type="email"],
+.woocommerce-checkout .woocommerce-shipping-fields input[type="tel"],
+.woocommerce-checkout .woocommerce-shipping-fields select,
+.woocommerce-checkout .woocommerce-additional-fields .input-text,
+.woocommerce-checkout .woocommerce-additional-fields textarea {
+    font-size: 16px !important;
+    padding: 15px 14px !important;
+    min-height: 54px !important;
+    height: auto !important;
+}
+
+.woocommerce-checkout .woocommerce-billing-fields label,
+.woocommerce-checkout .woocommerce-shipping-fields label,
+.woocommerce-checkout .woocommerce-additional-fields label {
+    font-size: 15px !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+}
+
+.woocommerce-checkout .woocommerce-billing-fields label abbr,
+.woocommerce-checkout .woocommerce-shipping-fields label abbr {
+    display: none !important;
+}
+
+.woocommerce-checkout .woocommerce-billing-fields .form-row,
+.woocommerce-checkout .woocommerce-shipping-fields .form-row {
+    margin-bottom: 20px !important;
+}
+
+/* Campos innecesarios ocultos */
+#billing_company_field,
+#shipping_company_field,
+#billing_address_2_field,
+#shipping_address_2_field {
+    display: none !important;
+}
+
+/* Resumen del pedido */
+.woocommerce-checkout h3#order_review_heading {
+    font-size: 22px !important;
+    margin-bottom: 18px !important;
+}
+
+.woocommerce-checkout-review-order-table .product-name {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+}
+
+.woocommerce-checkout-review-order-table .product-total {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+}
+
+.woocommerce-checkout-review-order-table .cart-subtotal th,
+.woocommerce-checkout-review-order-table .cart-subtotal td,
+.woocommerce-checkout-review-order-table .shipping th,
+.woocommerce-checkout-review-order-table .shipping td {
+    font-size: 15px !important;
+    padding: 12px 6px !important;
+}
+
+.woocommerce-checkout-review-order-table .order-total th {
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    padding: 16px 6px !important;
+}
+
+.woocommerce-checkout-review-order-table .order-total .amount {
+    font-size: 28px !important;
+    font-weight: 800 !important;
+}
+
+/* Opciones de envío */
+.woocommerce-shipping-methods {
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.woocommerce-shipping-methods li {
+    display: flex !important;
+    align-items: center !important;
+    padding: 6px 0 !important;
+    list-style: none !important;
+}
+
+.woocommerce-shipping-methods li input[type="radio"] {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    flex-shrink: 0 !important;
+    margin: 0 8px 0 0 !important;
+    float: none !important;
+    position: static !important;
+}
+
+.woocommerce-shipping-methods li label {
+    flex: 1 !important;
+    font-size: 15px !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    display: inline !important;
+}
+
+/* Métodos de pago */
+#payment .wc_payment_methods {
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+#payment .wc_payment_methods .wc_payment_method {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    padding: 14px 6px !important;
+    border-bottom: 1px solid var(--ca-gris-borde) !important;
+    list-style: none !important;
+}
+
+#payment .wc_payment_methods .wc_payment_method input[type="radio"] {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    flex-shrink: 0 !important;
+    margin: 0 10px 0 0 !important;
+    order: 1 !important;
+    float: none !important;
+    position: static !important;
+}
+
+#payment .wc_payment_methods .wc_payment_method > label {
+    flex: 1 !important;
+    font-size: 16px !important;
+    margin: 0 !important;
+    order: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer !important;
+}
+
+#payment .wc_payment_methods .wc_payment_method > label img {
+    margin-left: 8px !important;
+}
+
+#payment .wc_payment_methods .wc_payment_method .payment_box {
+    width: 100% !important;
+    order: 3 !important;
+    font-size: 14px !important;
+    line-height: 1.7 !important;
+    padding: 10px 6px !important;
+}
+
+#payment .wc_payment_methods .wc_payment_method .payment_box p {
+    font-size: 14px !important;
+    margin-bottom: 6px !important;
+}
+
+/* Botón Realizar Pedido */
+#place_order {
+    font-size: 20px !important;
+    padding: 20px !important;
+    min-height: 64px !important;
+    width: 100% !important;
+    display: block !important;
+    margin-top: 20px !important;
+    box-shadow: none !important;
+}
+
+/* Botón Ir a Pagar */
+.wc-proceed-to-checkout .checkout-button,
+.wc-proceed-to-checkout a.button {
+    font-size: 20px !important;
+    padding: 20px !important;
+    min-height: 64px !important;
+    width: 100% !important;
+    display: block !important;
+    text-align: center !important;
+}
+
+.cart_totals .order-total .amount {
+    font-size: 28px !important;
+    font-weight: 800 !important;
+}
+
+.cart_totals .order-total th {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+
+
+/* ==========================================================================
+   13. CUSTOM PLUS BLOCK — Mantenido
+   ========================================================================== */
+.cp-wrap{font-family:'Barlow',sans-serif;background:#141414;border:1px solid rgba(255,107,0,.25);border-radius:14px;overflow:hidden;margin:24px 0;color:#e2d9cf}
+.cp-titulo{background:#1e1e1e;padding:14px 16px;font-size:13px;color:#888;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.07)}
+.cp-badge{background:#FF6B00;color:#000;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;letter-spacing:1.5px;padding:4px 12px;border-radius:6px;flex-shrink:0}
+.cp-stats{padding:14px 14px 0}
+.cp-stat-row{margin-bottom:14px}
+.cp-stat-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#666;margin-bottom:8px;font-weight:600}
+.cp-cols{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center}
+.cp-arrow{text-align:center;color:#FF6B00;font-size:20px;font-weight:700}
+.cp-col{padding:12px 10px;border-radius:10px;text-align:center}
+.cp-col.std{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
+.cp-col.cus{background:rgba(255,107,0,.1);border:1px solid rgba(255,107,0,.3)}
+.cp-col-head{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#666;margin-bottom:4px}
+.cp-col.cus .cp-col-head{color:#FF9A40}
+.cp-num{font-family:'Rajdhani',sans-serif;font-size:clamp(28px,7vw,38px);font-weight:700;color:#fff;line-height:1;transition:opacity .25s ease}
+.cp-col.cus .cp-num{color:#FF9A40}
+.cp-unit{font-size:clamp(11px,2.5vw,13px);color:#666;text-transform:uppercase;letter-spacing:1px;margin-top:2px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.cp-sub{font-size:11px;color:#555;margin-top:4px;transition:opacity .25s ease}
+.cp-sub .cp-delta-sm{background:#FF6B00;color:#000;font-size:9px;font-weight:700;padding:1px 4px;border-radius:3px}
+.cp-delta{background:#FF6B00;color:#000;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px}
+.cp-incluye{padding:14px 16px 0}
+.cp-incluye-titulo{font-family:'Rajdhani',sans-serif;font-size:clamp(14px,3.5vw,16px);font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.cp-checks{display:flex;flex-direction:column;gap:6px}
+.cp-check{font-size:clamp(13px,3.2vw,15px);padding:9px 12px;border-radius:8px;background:rgba(255,255,255,.03);color:#aaa;line-height:1.3}
+.cp-check.destacado{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#86efac;font-weight:600}
+.cp-precio{display:flex;align-items:center;justify-content:space-between;margin:14px 16px 0;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:9px}
+.cp-precio-txt{font-size:clamp(12px,3vw,14px);color:#666}
+.cp-precio-num{font-family:'Rajdhani',sans-serif;font-size:clamp(18px,5vw,22px);font-weight:700;color:#FF6B00}
+.cp-cta{display:flex;align-items:center;justify-content:center;margin:12px 16px;padding:15px;background:#25D366;color:#000;border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:clamp(15px,4vw,18px);font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,.2)}
+.cp-aviso{font-size:11px;color:#444;text-align:center;padding:0 16px 14px;line-height:1.5}
+@media(max-width:360px){.cp-cols{gap:4px}.cp-col{padding:10px 6px}}
+
+
+/* ==========================================================================
+   14. VARIANTES COMO BOTONES
+   ========================================================================== */
+.variations .label label{
+    display:block;font-size:13px;font-weight:700;
+    color:#aaa;text-transform:uppercase;letter-spacing:2px;
+    margin-bottom:8px
+}
+
+.cp-var-hint{
+    font-size:12px;color:var(--ca-naranja);
+    margin-bottom:10px;display:flex;align-items:center;
+    justify-content:center;gap:6px;
+    animation:cp-pulso 2s ease-in-out infinite
+}
+
+@keyframes cp-pulso{0%,100%{opacity:1}50%{opacity:.5}}
+
+.cp-btn-group{
+    display:flex;flex-wrap:wrap;gap:8px;
+    margin-bottom:4px;
+    justify-content:center
+}
+
+.cp-var-btn{
+    padding:11px 20px;border-radius:9px;
+    font-family:'Rajdhani',sans-serif;
+    font-size:clamp(14px,3.8vw,17px);font-weight:700;
+    letter-spacing:1px;cursor:pointer;
+    border:2px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.05);color:#aaa;
+    transition:all .2s;user-select:none;min-width:80px;
+    text-align:center
+}
+
+.cp-var-btn:hover{border-color:rgba(255,107,0,.5);color:#fff}
+.cp-var-btn.sel{background:rgba(255,107,0,.15);border-color:#FF6B00;color:#fff}
+.cp-var-btn.sel-cus{background:rgba(255,107,0,.2);border-color:#FF6B00;color:#FF9A40}
+
+
+/* ==========================================================================
+   15. MEJORAS DE RENDIMIENTO MOBILE
+   ========================================================================== */
+@media (max-width: 767px) {
+    
+    /* Reducir complejidad visual en mobile */
+    .product-grid-item:hover,
+    .wd-product:hover {
+        transform: none !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+    }
+    
+    .product-grid-item::before,
+    .wd-product::before {
+        display: none;
+    }
+    
+    /* Carrusel de productos mobile — Sin recortes */
+    .wd-carousel-container {
+        overflow-x: clip !important;
+        overflow-y: visible !important;
+    }
+    
+    .wd-carousel .product-grid-item,
+    .wd-carousel .wd-product {
+        padding-bottom: 16px !important;
+        margin-bottom: 8px !important;
+    }
+    
+    /* Desactivar animación shine de marcas en mobile (rendimiento) */
+    .woodmart-carousel-item::after,
+    .brands-widget .wd-carousel-item::after,
+    .wd-brands .wd-carousel-item::after {
+        animation: none !important;
+        display: none !important;
+    }
+    
+    /* Marcas sin grayscale en mobile (ya no hay hover) */
+    .woodmart-carousel-item img,
+    .brands-widget img,
+    .wd-brands img {
+        filter: grayscale(30%) brightness(0.85) !important;
+    }
+    
+    /* Header simplificado */
+    .whb-main-header {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    
+    /* Footer */
+    .vendedores-footer a {
+        font-size: 18px !important;
+    }
+    
+    .footer-container .vc_column_container {
+        margin-bottom: 40px !important;
+    }
+    
+    .lista-enlaces a {
+        font-size: 17px !important;
+        padding: 8px 0;
+    }
+    
+    /* Ubicación */
+    .card-ubicacion {
+        padding: 20px;
+        margin-top: 20px;
+    }
+    
+    .card-ubicacion .btn-google-maps {
+        font-size: 16px !important;
+        min-height: 55px !important;
+    }
+    
+    /* Checkout mobile */
+    .woocommerce-checkout .customer-details {
+        order: 2 !important;
+    }
+
+    .woocommerce-checkout .checkout-order-review {
+        order: 1 !important;
+    }
+
+    .woocommerce-checkout .col2-set,
+    .woocommerce-checkout .col-1,
+    .woocommerce-checkout .col-2 {
+        width: 100% !important;
+        float: none !important;
+        margin: 0 0 16px 0 !important;
+    }
+
+    .woocommerce-checkout #order_review_heading,
+    .woocommerce-checkout #order_review {
+        width: 100% !important;
+        float: none !important;
+    }
+
+    .woocommerce-checkout .form-row-first,
+    .woocommerce-checkout .form-row-last {
+        width: 100% !important;
+        float: none !important;
+        margin-right: 0 !important;
+    }
+
+    .woocommerce-checkout #customer_details {
+        border-top: 2px solid var(--ca-gris-borde) !important;
+        padding-top: 20px !important;
+        margin-top: 8px !important;
+    }
+
+    table.woocommerce-checkout-review-order-table {
+        width: 100% !important;
+        table-layout: fixed !important;
+        word-break: break-word !important;
+    }
+
+    table.woocommerce-checkout-review-order-table td,
+    table.woocommerce-checkout-review-order-table th {
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+
+    table.woocommerce-checkout-review-order-table td.product-name,
+    table.woocommerce-checkout-review-order-table th.product-name {
+        width: 65% !important;
+    }
+
+    table.woocommerce-checkout-review-order-table td.product-total,
+    table.woocommerce-checkout-review-order-table th.product-total {
+        width: 35% !important;
+        text-align: right !important;
+    }
+}
+
+
+/* ==========================================================================
+   16. OPTIMIZACIÓN DE FUENTES (Agregar en tu <head> del tema)
+   ========================================================================== */
+/*  
+   NOTA: Agregá esto en tu header de WordPress para cargar fuentes más rápido:
+   
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700;800&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
+*/
