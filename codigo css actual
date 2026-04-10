@@ -1,0 +1,2258 @@
+/* ==========================================================================
+   COLIHUE AVENTURA — CSS OPTIMIZADO v3.0 CORREGIDO
+   Correcciones aplicadas:
+   - Grilla de catálogo funciona correctamente
+   - Animaciones circulares del inicio preservadas
+   - Productos relacionados arreglados
+   - Footer intacto
+   ========================================================================== */
+
+
+/* ==========================================================================
+   0. VARIABLES GLOBALES (Fácil de mantener y modificar)
+   ========================================================================== */
+:root {
+    --ca-naranja: #ff6600;
+    --ca-naranja-glow: rgba(255, 102, 0, 0.3);
+    --ca-naranja-soft: rgba(255, 102, 0, 0.15);
+    --ca-verde-wa: #25d366;
+    --ca-negro: #0a0a0a;
+    --ca-gris-oscuro: #111111;
+    --ca-gris-borde: #2a2a2a;
+    --ca-gris-texto: #999;
+    --ca-blanco: #ffffff;
+    --ca-radio: 10px;
+    --ca-transicion: 0.3s ease;
+}
+
+
+/* ==========================================================================
+   1. FONDO GLOBAL — Fibra de carbono optimizada
+   ========================================================================== */
+body {
+    background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'), 
+                      linear-gradient(180deg, var(--ca-negro) 0%, var(--ca-gris-oscuro) 100%) !important;
+    background-attachment: scroll !important;
+    background-color: var(--ca-negro) !important;
+}
+
+@media (min-width: 769px) {
+    body {
+        background-attachment: fixed !important;
+    }
+}
+
+.main-page-wrapper, 
+.wrapper, 
+.vc_row[data-vc-full-width] {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+
+/* ==========================================================================
+   2. TEXTO DEL HEADER — Top bar
+   ========================================================================== */
+.whb-top-bar {    
+    position: relative !important;
+}
+
+.whb-top-bar .whb-col-center {    
+    position: absolute !important;    
+    left: 50% !important;    
+    top: 50% !important;    
+    transform: translate(-50%, -50%) !important;    
+    z-index: 10001 !important;    
+    white-space: nowrap !important;
+}
+
+.whb-top-bar .wd-header-text {    
+    color: var(--ca-naranja) !important;    
+    font-weight: 800;    
+    text-transform: uppercase;    
+    letter-spacing: 2px;    
+    text-shadow: 0 0 12px rgba(255, 90, 0, 0.5);
+}
+
+
+/* ==========================================================================
+   3. HEADER PRINCIPAL — Más limpio, con mejor contraste
+   ========================================================================== */
+.whb-main-header {
+    background-color: rgba(14, 14, 14, 0.95) !important; 
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.8) !important;
+    border-bottom: 1px solid var(--ca-gris-borde) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: relative;
+    z-index: 100;
+}
+
+.site-logo img, .wd-logo img {
+    margin-bottom: 4px;
+    display: block;
+}
+
+.whb-main-header .wd-nav > li > a {
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+    font-size: 13px !important;
+    transition: color var(--ca-transicion) !important;
+}
+
+.whb-main-header .wd-nav > li > a:hover {
+    color: var(--ca-naranja) !important;
+}
+
+.whb-main-header .wd-nav > li.current-menu-item > a,
+.whb-main-header .wd-nav > li.current-menu-ancestor > a {
+    color: var(--ca-naranja) !important;
+    position: relative !important;
+}
+
+.whb-main-header .wd-nav > li.current-menu-item > a::after,
+.whb-main-header .wd-nav > li.current-menu-ancestor > a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 20%;
+    right: 20%;
+    height: 2px;
+    background: var(--ca-naranja);
+    border-radius: 2px;
+}
+
+.whb-main-header .wd-tools-element > a {
+    transition: color var(--ca-transicion) !important;
+}
+
+.whb-main-header .wd-tools-element > a:hover {
+    color: var(--ca-naranja) !important;
+}
+
+
+/* ==========================================================================
+   4. BALÍN CON ESTELA — Optimizado para mobile
+   ========================================================================== */
+.pe-container {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    overflow: hidden; 
+    margin: 20px 0;
+}
+
+.pe-bullet-assembly {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: shootBullet 8s linear infinite;
+}
+
+.pe-trail-flames {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px; 
+    height: 3px; 
+    background: linear-gradient(to right, transparent 0%, rgba(255, 102, 0, 0.6) 60%, var(--ca-naranja) 100%);
+    box-shadow: 0 0 10px 2px var(--ca-naranja); 
+    margin-right: -1px; 
+    border-radius: 5px 0 0 5px;
+    animation: prolijoTrail 8s linear infinite;
+}
+
+.pe-pellet-solid {
+    display: flex;
+    align-items: center;
+    filter: drop-shadow(3px 5px 3px rgba(0, 0, 0, 0.6)); 
+}
+
+.pe-skirt {
+    width: 12px;
+    height: 16px;
+    background: linear-gradient(to bottom, #6a6a6a 0%, #c5c5c5 30%, #3a3a3a 75%, #111 100%);
+    clip-path: polygon(0% 0%, 100% 20%, 100% 80%, 0% 100%); 
+}
+
+.pe-waist {
+    width: 4px;
+    height: 10px; 
+    background: linear-gradient(to bottom, #555 0%, #aaa 30%, #333 75%, #111 100%);
+}
+
+.pe-head {
+    width: 9px; 
+    height: 16px;
+    background: linear-gradient(to bottom, #7a7a7a 0%, #d5d5d5 30%, #4a4a4a 75%, #222 100%);
+    border-radius: 0 8px 8px 0; 
+}
+
+@keyframes shootBullet {
+    0%   { left: -160px; } 
+    85%  { left: 100%; opacity: 1; } 
+    86%  { left: 100%; opacity: 0; }
+    100% { left: 100%; opacity: 0; }
+}
+
+@keyframes prolijoTrail {
+    0%   { width: 0px; opacity: 0; }
+    5%   { width: 150px; opacity: 1; } 
+    75%  { width: 150px; opacity: 1; } 
+    82%  { width: 0px; opacity: 0; }
+    100% { width: 0px; opacity: 0; }
+}
+
+@media (max-width: 768px) {
+    .pe-container {
+        display: none;
+    }
+}
+
+
+/* ==========================================================================
+   5. TARJETAS DE PRODUCTOS — Rediseño premium
+   ========================================================================== */
+.product-grid-item, 
+.wd-product {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid var(--ca-gris-borde) !important;
+    border-radius: var(--ca-radio) !important;
+    padding: 16px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+    transition: transform var(--ca-transicion), 
+                box-shadow var(--ca-transicion), 
+                border-color var(--ca-transicion) !important;
+    position: relative;
+}
+
+/* Línea naranja sutil arriba de cada tarjeta */
+.product-grid-item::before,
+.wd-product::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ca-naranja), transparent);
+    opacity: 0;
+    transition: opacity var(--ca-transicion);
+}
+
+.product-grid-item:hover,
+.wd-product:hover {
+    transform: translateY(-6px) !important;
+    border-color: var(--ca-naranja) !important;
+    box-shadow: 0 12px 30px rgba(255, 102, 0, 0.15),
+                0 4px 15px rgba(0, 0, 0, 0.5) !important;
+    z-index: 10;
+}
+
+.product-grid-item:hover::before,
+.wd-product:hover::before {
+    opacity: 1;
+}
+
+/* Imagen del producto — Mejor presentación */
+.product-grid-item .product-image-link img,
+.wd-product .product-image-link img {
+    border-radius: 8px !important;
+    transition: transform 0.4s ease !important;
+}
+
+.product-grid-item:hover .product-image-link img,
+.wd-product:hover .product-image-link img {
+    transform: scale(1.03) !important;
+}
+
+/* Nombre del producto */
+.product-grid-item .wd-entities-title,
+.wd-product .wd-entities-title {
+    color: var(--ca-blanco) !important;
+    font-weight: 700 !important;
+    margin-top: 12px !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+}
+
+/* Precio BASE — Tamaño normal */
+.product-grid-item .price,
+.wd-product .price {
+    color: var(--ca-naranja) !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    margin-top: 8px !important;
+}
+
+/* Precio tachado (ofertas) */
+.product-grid-item .price del,
+.wd-product .price del {
+    color: #666 !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+}
+
+/* Badges Hot/Oferta — Rediseño sutil */
+.product-grid-item .wd-product-badges .onsale,
+.wd-product .wd-product-badges .onsale {
+    background: var(--ca-naranja) !important;
+    color: #000 !important;
+    font-weight: 800 !important;
+    font-size: 11px !important;
+    letter-spacing: 1px !important;
+    border-radius: 6px !important;
+    padding: 4px 10px !important;
+    text-transform: uppercase !important;
+}
+
+.product-grid-item .wd-product-badges .product-label,
+.wd-product .wd-product-badges .product-label {
+    border-radius: 6px !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px !important;
+}
+
+/* Botón Añadir al Carrito / Seleccionar opciones */
+.product-grid-item .add_to_cart_button,
+.product-grid-item .product_type_variable,
+.wd-product .add_to_cart_button,
+.wd-product .product_type_variable {
+    background: transparent !important;
+    border: 1.5px solid var(--ca-naranja) !important;
+    color: var(--ca-naranja) !important;
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    transition: all var(--ca-transicion) !important;
+    padding: 10px 16px !important;
+}
+
+.product-grid-item .add_to_cart_button:hover,
+.product-grid-item .product_type_variable:hover,
+.wd-product .add_to_cart_button:hover,
+.wd-product .product_type_variable:hover {
+    background: var(--ca-naranja) !important;
+    color: #000 !important;
+}
+
+/* Categoría del producto — Más discreta */
+.product-grid-item .wd-product-cats,
+.wd-product .wd-product-cats {
+    font-size: 11px !important;
+    color: #666 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+}
+
+
+/* ==========================================================================
+   5b. PRODUCTOS RELACIONADOS — SOLO CORREGIR PRECIOS
+   NO tocar layout/display del carrusel para no romperlo
+   ========================================================================== */
+
+/* Precio en productos relacionados - TAMAÑO NORMAL (no gigante) */
+.single-product .related .price,
+.single-product .up-sells .price,
+.single-product .cross-sells .price,
+.single-product section.related .price,
+.single-product section.up-sells .price {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    color: var(--ca-naranja) !important;
+    min-height: auto !important;
+    padding: 0 !important;
+    padding-bottom: 0 !important;
+    margin: 8px 0 !important;
+    line-height: 1.3 !important;
+}
+
+/* Precio tachado en relacionados */
+.single-product .related .price del,
+.single-product .up-sells .price del,
+.single-product .cross-sells .price del {
+    font-size: 12px !important;
+    color: #666 !important;
+}
+
+/* Título de producto en relacionados */
+.single-product .related .wd-entities-title,
+.single-product .up-sells .wd-entities-title,
+.single-product .cross-sells .wd-entities-title {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+}
+
+/* Tarjetas en relacionados - solo estilo visual, NO layout */
+.single-product .related .product-grid-item,
+.single-product .up-sells .product-grid-item,
+.single-product .cross-sells .product-grid-item,
+.single-product .related .wd-product,
+.single-product .up-sells .wd-product,
+.single-product .cross-sells .wd-product {
+    padding: 14px !important;
+}
+
+
+/* ==========================================================================
+   6. SLIDER MARQUEE DE RIFLES FOX (Efecto Lupa Circular)
+   ========================================================================== */
+
+.pe-lupa-slider {
+    width: 100%;
+    overflow: hidden;
+    padding: 40px 0 10px;
+    position: relative;
+    background: transparent;
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
+}
+
+.pe-lupa-track {
+    display: flex;
+    flex-wrap: nowrap !important;
+    width: max-content;
+    gap: 40px;
+    transform: translate3d(0, 0, 0);
+    animation: marqueeLupa 60s linear infinite;
+}
+
+.pe-rifle-card {
+    flex: 0 0 130px;
+    text-align: center;
+    text-decoration: none !important;
+    transition: transform 0.4s ease-out; 
+    display: block;
+    backface-visibility: hidden;
+}
+
+.pe-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #000;
+    border: 2px solid var(--ca-naranja);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), 0 0 15px var(--ca-naranja-glow);
+    transition: transform var(--ca-transicion), border-color var(--ca-transicion), box-shadow var(--ca-transicion);
+}
+
+.pe-rifle-card:hover .pe-circle, 
+.pe-rifle-card:active .pe-circle {
+    transform: scale(1.1);
+    border-color: var(--ca-blanco);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 1), 0 0 25px rgba(255, 102, 0, 0.6);
+}
+
+.pe-circle img {
+    width: 90%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pe-rifle-card:hover .pe-circle img {
+    transform: scale(1.15) rotate(3deg);
+}
+
+.pe-rifle-name {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color var(--ca-transicion);
+}
+
+.pe-rifle-card:hover .pe-rifle-name {
+    color: var(--ca-naranja);
+}
+
+@keyframes marqueeLupa {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@media (max-width: 768px) {
+    .pe-lupa-track {
+        animation-duration: 90s;
+    }
+    
+    .pe-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .pe-rifle-card {
+        flex: 0 0 110px;
+    }
+}
+
+
+/* ==========================================================================
+   6b. GALERÍAS DE PRODUCTO INDIVIDUAL — Protección
+   ========================================================================== */
+
+.single-product .product-images,
+.single-product .woocommerce-product-gallery,
+.single-product .product-image-summary,
+.single-product .images,
+.single-product .product-images-inner,
+.single-product .woocommerce-product-gallery__wrapper,
+.single-product .woocommerce-product-gallery__image,
+.single-product .flex-viewport,
+.single-product .flex-control-thumbs,
+.single-product .flex-control-thumbs li {
+    overflow: hidden !important;
+}
+
+.single-product .flex-control-thumbs li {
+    display: inline-block !important;
+    margin: 0 5px 5px 0 !important;
+}
+
+.single-product .woocommerce-product-gallery__image img,
+.single-product .flex-control-thumbs img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+}
+
+
+/* ==========================================================================
+   7. PÁGINAS DE TIENDA/CATÁLOGO — Dejar que Woodmart maneje la grilla
+   
+   IMPORTANTE: Removido el grid forzado que causaba conflictos.
+   Woodmart tiene su propio sistema de grilla que funciona bien.
+   ========================================================================== */
+
+/* Solo ajustes visuales mínimos, sin tocar el layout */
+.archive .products .wd-product,
+.woocommerce-page .products .wd-product,
+.post-type-archive-product .products .wd-product,
+.tax-product_cat .products .wd-product {
+    /* Asegurar que el contenido no colapse */
+    min-width: 0 !important;
+}
+
+/* Fix para el contenido de las tarjetas en catálogo */
+.archive .wd-product .product-element-bottom,
+.woocommerce-page .wd-product .product-element-bottom,
+.post-type-archive-product .wd-product .product-element-bottom,
+.tax-product_cat .wd-product .product-element-bottom {
+    width: 100% !important;
+}
+
+/* Asegurar títulos horizontales en catálogo */
+.archive .wd-product .wd-entities-title,
+.woocommerce-page .wd-product .wd-entities-title,
+.post-type-archive-product .wd-product .wd-entities-title,
+.tax-product_cat .wd-product .wd-entities-title {
+    writing-mode: horizontal-tb !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+}
+
+
+/* ==========================================================================
+   8. MARCAS EN EL CARRUSEL — Animación premium
+   ========================================================================== */
+
+.woodmart-carousel-item img,
+.brands-widget img,
+.wd-brands img {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid var(--ca-gris-borde) !important;
+    border-radius: 10px !important;
+    padding: 14px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    filter: grayscale(100%) brightness(0.6) !important;
+}
+
+.woodmart-carousel-item img:hover,
+.brands-widget img:hover,
+.wd-brands img:hover {
+    border-color: var(--ca-naranja) !important;
+    transform: scale(1.12) translateY(-6px) !important;
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.6),
+                0 0 25px var(--ca-naranja-glow),
+                inset 0 0 0 1px rgba(255, 102, 0, 0.1) !important;
+    filter: grayscale(0%) brightness(1.1) !important;
+    background: rgba(255, 102, 0, 0.05) !important;
+}
+
+.woodmart-carousel-item,
+.brands-widget .wd-carousel-item,
+.wd-brands .wd-carousel-item {
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 10px !important;
+}
+
+.woodmart-carousel-item::after,
+.brands-widget .wd-carousel-item::after,
+.wd-brands .wd-carousel-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        105deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.03) 30%, 
+        rgba(255, 102, 0, 0.08) 45%, 
+        rgba(255, 255, 255, 0.12) 50%, 
+        rgba(255, 102, 0, 0.08) 55%, 
+        rgba(255, 255, 255, 0.03) 70%, 
+        transparent 100%
+    );
+    transform: skewX(-20deg);
+    pointer-events: none;
+    z-index: 2;
+    animation: marcaShine 5s ease-in-out infinite;
+    animation-delay: calc(var(--item-index, 0) * 0.4s);
+}
+
+.woodmart-carousel-item:hover::after,
+.brands-widget .wd-carousel-item:hover::after,
+.wd-brands .wd-carousel-item:hover::after {
+    animation: marcaShineHover 0.6s ease-out forwards;
+}
+
+.woodmart-carousel-item::before,
+.brands-widget .wd-carousel-item::before,
+.wd-brands .wd-carousel-item::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
+    height: 2px;
+    background: var(--ca-naranja);
+    z-index: 3;
+    transition: left 0.4s ease, right 0.4s ease;
+    border-radius: 2px;
+}
+
+.woodmart-carousel-item:hover::before,
+.brands-widget .wd-carousel-item:hover::before,
+.wd-brands .wd-carousel-item:hover::before {
+    left: 15%;
+    right: 15%;
+}
+
+@keyframes marcaShine {
+    0%, 100% { left: -100%; opacity: 0; }
+    5%       { opacity: 0.8; }
+    40%      { left: 200%; opacity: 0.8; }
+    45%      { opacity: 0; }
+    46%      { left: -100%; }
+}
+
+@keyframes marcaShineHover {
+    0%   { left: -100%; opacity: 1; }
+    100% { left: 200%; opacity: 0; }
+}
+
+.brands-widget .widget-title,
+.wd-brands .widget-title {
+    text-align: center !important;
+    font-size: 13px !important;
+    letter-spacing: 4px !important;
+    color: #555 !important;
+    text-transform: uppercase !important;
+    margin-bottom: 30px !important;
+    position: relative !important;
+    padding-bottom: 12px !important;
+}
+
+.brands-widget .widget-title::after,
+.wd-brands .widget-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: var(--ca-naranja);
+    border-radius: 2px;
+}
+
+
+/* ==========================================================================
+   9. FOOTER
+   ========================================================================== */
+.footer-container {
+    background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'), 
+                      linear-gradient(180deg, var(--ca-negro) 0%, var(--ca-gris-oscuro) 100%) !important;
+    background-color: var(--ca-negro) !important;
+    background-repeat: repeat !important;
+    border-top: 2px solid #333 !important;
+}
+
+.footer-container .vc_column_container {
+    margin-bottom: 30px !important;
+}
+
+.vendedores-footer p {
+    margin-bottom: 18px !important;
+    border-left: 3px solid var(--ca-verde-wa);
+    padding-left: 15px !important;
+    line-height: 1.2 !important;
+}
+
+.vendedores-footer strong {
+    color: var(--ca-blanco) !important;
+    font-size: 13px !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.vendedores-footer a {
+    color: var(--ca-verde-wa) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    transition: all var(--ca-transicion);
+}
+
+.vendedores-footer a:hover {
+    color: var(--ca-blanco) !important;
+    padding-left: 5px;
+}
+
+.footer-container .wpb_heading, 
+.footer-container .widget-title,
+.footer-container h4 {
+    color: var(--ca-blanco) !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    border-bottom: 3px solid var(--ca-verde-wa) !important;
+    display: inline-block !important;
+    margin-bottom: 25px !important;
+    padding-bottom: 5px !important;
+}
+
+.card-ubicacion {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    border-left: 4px solid var(--ca-verde-wa);
+}
+
+.etiqueta-pro {
+    color: #888 !important;
+    font-size: 11px !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.ciudad-footer {
+    color: var(--ca-blanco) !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    margin-bottom: 10px !important;
+}
+
+.direccion-footer {
+    color: #ccc !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 20px !important;
+}
+
+.card-ubicacion p {
+    color: #ccc !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    margin-bottom: 16px !important;
+}
+
+.card-ubicacion .btn-google-maps {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: var(--ca-verde-wa) !important;
+    color: #000 !important;
+    width: 100% !important;
+    height: 50px !important;
+    padding: 0 !important;
+    margin-top: 15px !important;
+    border-radius: 5px !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    line-height: 1 !important;
+    border: none !important;
+    transition: all var(--ca-transicion);
+}
+
+.card-ubicacion .btn-google-maps:hover {
+    background-color: var(--ca-blanco) !important;
+    color: #000 !important;
+    transform: scale(1.02);
+}
+
+.enlaces-utiles-footer {
+    border-left: 4px solid var(--ca-verde-wa);
+    padding-left: 15px;
+}
+
+.titulo-columna {
+    color: var(--ca-blanco) !important;
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    margin-bottom: 15px !important;
+    letter-spacing: 1px;
+}
+
+.lista-enlaces {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.lista-enlaces li {
+    margin-bottom: 12px !important;
+}
+
+.lista-enlaces a {
+    color: #ccc !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all var(--ca-transicion);
+}
+
+.lista-enlaces a i {
+    font-size: 14px;
+    color: var(--ca-verde-wa);
+}
+
+.lista-enlaces a:hover {
+    color: var(--ca-verde-wa) !important;
+    padding-left: 8px;
+}
+
+
+/* ==========================================================================
+   10. PÁGINA DE PRODUCTO INDIVIDUAL
+   ========================================================================== */
+.single-product .product {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid var(--ca-gris-borde) !important;
+    border-radius: var(--ca-radio) !important;
+    padding: 30px !important;
+}
+
+.single-product .product-title,
+.single-product .product_title {
+    color: var(--ca-naranja) !important;
+    font-weight: 800 !important;
+    font-size: 32px !important;
+    margin-bottom: 20px !important;
+}
+
+/* Precio del producto PRINCIPAL (este sí puede ser grande) */
+.single-product > .product > .summary .price,
+.single-product .product-summary .price,
+.single-product .entry-summary .price {
+    font-size: 36px !important;
+    color: var(--ca-naranja) !important;
+    font-weight: 800 !important;
+    margin-bottom: 24px !important;
+}
+
+.single-product > .product > .summary .price del,
+.single-product .product-summary .price del,
+.single-product .entry-summary .price del {
+    color: var(--ca-gris-texto) !important;
+    font-size: 24px !important;
+    margin-right: 12px !important;
+}
+
+.single-product .woocommerce-product-details__short-description,
+.single-product .product-short-description {
+    color: var(--ca-gris-texto) !important;
+    line-height: 1.8 !important;
+    margin-bottom: 30px !important;
+    font-size: 15px !important;
+}
+
+.single-product .single_add_to_cart_button {
+    background: var(--ca-naranja) !important;
+    color: var(--ca-negro) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 16px 40px !important;
+    font-weight: 800 !important;
+    font-size: 16px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    transition: all var(--ca-transicion) !important;
+    width: 100% !important;
+    max-width: 400px !important;
+}
+
+.single-product .single_add_to_cart_button:hover {
+    background: var(--ca-blanco) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px var(--ca-naranja-glow) !important;
+}
+
+.single-product .woocommerce-tabs {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid var(--ca-gris-borde) !important;
+    border-radius: var(--ca-radio) !important;
+    margin-top: 40px !important;
+    padding: 20px !important;
+}
+
+.single-product .woocommerce-tabs .tabs li {
+    background: transparent !important;
+    border: 1px solid var(--ca-gris-borde) !important;
+    border-radius: 6px !important;
+    margin-right: 8px !important;
+}
+
+.single-product .woocommerce-tabs .tabs li.active {
+    background: var(--ca-naranja) !important;
+    border-color: var(--ca-naranja) !important;
+}
+
+.single-product .woocommerce-tabs .tabs li a {
+    color: var(--ca-gris-texto) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+}
+
+.single-product .woocommerce-tabs .tabs li.active a {
+    color: var(--ca-negro) !important;
+}
+
+
+/* ==========================================================================
+   11. CARRITO Y CHECKOUT
+   ========================================================================== */
+.woocommerce-cart-form {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid var(--ca-gris-borde) !important;
+    border-radius: var(--ca-radio) !important;
+    padding: 20px !important;
+}
+
+.woocommerce-cart-form table {
+    color: var(--ca-blanco) !important;
+}
+
+.woocommerce-cart-form th {
+    background: var(--ca-gris-oscuro) !important;
+    color: var(--ca-naranja) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    padding: 16px !important;
+    border: 1px solid var(--ca-gris-borde) !important;
+}
+
+.woocommerce-cart-form td {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid var(--ca-gris-borde) !important;
+    padding: 16px !important;
+}
+
+.woocommerce-cart-form .product-name a {
+    color: var(--ca-blanco) !important;
+    font-weight: 600 !important;
+    transition: color var(--ca-transicion) !important;
+}
+
+.woocommerce-cart-form .product-name a:hover {
+    color: var(--ca-naranja) !important;
+}
+
+.cart_totals {
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 2px solid var(--ca-naranja) !important;
+    border-radius: var(--ca-radio) !important;
+    padding: 30px !important;
+}
+
+.cart_totals h2 {
+    color: var(--ca-naranja) !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    margin-bottom: 20px !important;
+    font-size: 24px !important;
+}
+
+.cart_totals table {
+    width: 100% !important;
+}
+
+.cart_totals th,
+.cart_totals td {
+    color: var(--ca-blanco) !important;
+    padding: 12px !important;
+    font-size: 16px !important;
+}
+
+.cart_totals .order-total {
+    border-top: 2px solid var(--ca-naranja) !important;
+    padding-top: 16px !important;
+    margin-top: 12px !important;
+}
+
+.cart_totals .wc-proceed-to-checkout {
+    margin-top: 24px !important;
+}
+
+.cart_totals .checkout-button {
+    background: var(--ca-naranja) !important;
+    color: var(--ca-negro) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 18px !important;
+    font-weight: 800 !important;
+    font-size: 18px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+    width: 100% !important;
+    transition: all var(--ca-transicion) !important;
+    display: block !important;
+    text-align: center !important;
+}
+
+.cart_totals .order-total .amount {
+    font-size: 28px !important;
+    font-weight: 800 !important;
+}
+
+.cart_totals .order-total th {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+}
+
+
+/* ==========================================================================
+   12. CUSTOM PLUS BLOCK
+   ========================================================================== */
+.cp-wrap{font-family:'Barlow',sans-serif;background:#141414;border:1px solid rgba(255,107,0,.25);border-radius:14px;overflow:hidden;margin:24px 0;color:#e2d9cf}
+.cp-titulo{background:#1e1e1e;padding:14px 16px;font-size:13px;color:#888;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.07)}
+.cp-badge{background:#FF6B00;color:#000;font-family:'Rajdhani',sans-serif;font-weight:700;font-size:13px;letter-spacing:1.5px;padding:4px 12px;border-radius:6px;flex-shrink:0}
+.cp-stats{padding:14px 14px 0}
+.cp-stat-row{margin-bottom:14px}
+.cp-stat-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:#666;margin-bottom:8px;font-weight:600}
+.cp-cols{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center}
+.cp-arrow{text-align:center;color:#FF6B00;font-size:20px;font-weight:700}
+.cp-col{padding:12px 10px;border-radius:10px;text-align:center}
+.cp-col.std{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
+.cp-col.cus{background:rgba(255,107,0,.1);border:1px solid rgba(255,107,0,.3)}
+.cp-col-head{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#666;margin-bottom:4px}
+.cp-col.cus .cp-col-head{color:#FF9A40}
+.cp-num{font-family:'Rajdhani',sans-serif;font-size:clamp(28px,7vw,38px);font-weight:700;color:#fff;line-height:1;transition:opacity .25s ease}
+.cp-col.cus .cp-num{color:#FF9A40}
+.cp-unit{font-size:clamp(11px,2.5vw,13px);color:#666;text-transform:uppercase;letter-spacing:1px;margin-top:2px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.cp-sub{font-size:11px;color:#555;margin-top:4px;transition:opacity .25s ease}
+.cp-sub .cp-delta-sm{background:#FF6B00;color:#000;font-size:9px;font-weight:700;padding:1px 4px;border-radius:3px}
+.cp-delta{background:#FF6B00;color:#000;font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px}
+.cp-incluye{padding:14px 16px 0}
+.cp-incluye-titulo{font-family:'Rajdhani',sans-serif;font-size:clamp(14px,3.5vw,16px);font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.cp-checks{display:flex;flex-direction:column;gap:6px}
+.cp-check{font-size:clamp(13px,3.2vw,15px);padding:9px 12px;border-radius:8px;background:rgba(255,255,255,.03);color:#aaa;line-height:1.3}
+.cp-check.destacado{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);color:#86efac;font-weight:600}
+.cp-precio{display:flex;align-items:center;justify-content:space-between;margin:14px 16px 0;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:9px}
+.cp-precio-txt{font-size:clamp(12px,3vw,14px);color:#666}
+.cp-precio-num{font-family:'Rajdhani',sans-serif;font-size:clamp(18px,5vw,22px);font-weight:700;color:#FF6B00}
+.cp-cta{display:flex;align-items:center;justify-content:center;margin:12px 16px;padding:15px;background:#25D366;color:#000;border-radius:10px;font-family:'Rajdhani',sans-serif;font-size:clamp(15px,4vw,18px);font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 16px rgba(37,211,102,.2)}
+.cp-aviso{font-size:11px;color:#444;text-align:center;padding:0 16px 14px;line-height:1.5}
+@media(max-width:360px){.cp-cols{gap:4px}.cp-col{padding:10px 6px}}
+
+
+/* ==========================================================================
+   13. VARIANTES COMO BOTONES
+   ========================================================================== */
+.variations .label label{
+    display:block;font-size:13px;font-weight:700;
+    color:#aaa;text-transform:uppercase;letter-spacing:2px;
+    margin-bottom:8px
+}
+
+.cp-var-hint{
+    font-size:12px;color:var(--ca-naranja);
+    margin-bottom:10px;display:flex;align-items:center;
+    justify-content:center;gap:6px;
+    animation:cp-pulso 2s ease-in-out infinite
+}
+
+@keyframes cp-pulso{0%,100%{opacity:1}50%{opacity:.5}}
+
+.cp-btn-group{
+    display:flex;flex-wrap:wrap;gap:8px;
+    margin-bottom:4px;
+    justify-content:center
+}
+
+.cp-var-btn{
+    padding:11px 20px;border-radius:9px;
+    font-family:'Rajdhani',sans-serif;
+    font-size:clamp(14px,3.8vw,17px);font-weight:700;
+    letter-spacing:1px;cursor:pointer;
+    border:2px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.05);color:#aaa;
+    transition:all .2s;user-select:none;min-width:80px;
+    text-align:center
+}
+
+.cp-var-btn:hover{border-color:rgba(255,107,0,.5);color:#fff}
+.cp-var-btn.sel{background:rgba(255,107,0,.15);border-color:#FF6B00;color:#fff}
+.cp-var-btn.sel-cus{background:rgba(255,107,0,.2);border-color:#FF6B00;color:#FF9A40}
+
+
+/* ==========================================================================
+   14. MEJORAS DE RENDIMIENTO MOBILE
+   ========================================================================== */
+@media (max-width: 767px) {
+    
+    /* Reducir complejidad visual en mobile */
+    .product-grid-item:hover,
+    .wd-product:hover {
+        transform: none !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+    }
+    
+    .product-grid-item::before,
+    .wd-product::before {
+        display: none;
+    }
+    
+    /* ===============================================
+       CARRUSEL HOME MOBILE — Imágenes bien recortadas
+       =============================================== */
+    
+    /* Solo para HOME - NO afectar single-product */
+    body.home .wd-carousel .product-grid-item .product-image-link,
+    body.home .wd-carousel .wd-product .product-image-link {
+        overflow: hidden !important;
+        border-radius: 8px !important;
+    }
+    
+    body.home .wd-carousel .product-grid-item .product-image-link img,
+    body.home .wd-carousel .wd-product .product-image-link img {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: cover !important;
+        border-radius: 8px !important;
+    }
+    
+    /* Precio en carrusel home mobile */
+    body.home .wd-carousel .product-grid-item .price,
+    body.home .wd-carousel .wd-product .price {
+        font-size: 14px !important;
+    }
+    
+    /* ===============================================
+       PRODUCTOS RELACIONADOS MOBILE — Solo precios
+       =============================================== */
+    .single-product .related .price,
+    .single-product .up-sells .price,
+    .single-product .cross-sells .price {
+        font-size: 13px !important;
+        margin: 6px 0 !important;
+    }
+    
+    .single-product .related .wd-entities-title,
+    .single-product .up-sells .wd-entities-title,
+    .single-product .cross-sells .wd-entities-title {
+        font-size: 11px !important;
+    }
+    
+    /* Desactivar animación shine de marcas en mobile */
+    .woodmart-carousel-item::after,
+    .brands-widget .wd-carousel-item::after,
+    .wd-brands .wd-carousel-item::after {
+        animation: none !important;
+        display: none !important;
+    }
+    
+    .woodmart-carousel-item img,
+    .brands-widget img,
+    .wd-brands img {
+        filter: grayscale(30%) brightness(0.85) !important;
+    }
+    
+    /* Header simplificado */
+    .whb-main-header {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    
+    /* Footer */
+    .vendedores-footer a {
+        font-size: 18px !important;
+    }
+    
+    .footer-container .vc_column_container {
+        margin-bottom: 40px !important;
+    }
+    
+    .lista-enlaces a {
+        font-size: 17px !important;
+        padding: 8px 0;
+    }
+    
+    .card-ubicacion {
+        padding: 20px;
+        margin-top: 20px;
+    }
+    
+    .card-ubicacion .btn-google-maps {
+        font-size: 16px !important;
+        min-height: 55px !important;
+    }
+    
+    /* Checkout mobile */
+    .woocommerce-checkout .customer-details {
+        order: 2 !important;
+    }
+
+    .woocommerce-checkout .checkout-order-review {
+        order: 1 !important;
+    }
+
+    .woocommerce-checkout .col2-set,
+    .woocommerce-checkout .col-1,
+    .woocommerce-checkout .col-2 {
+        width: 100% !important;
+        float: none !important;
+        margin: 0 0 16px 0 !important;
+    }
+
+    .woocommerce-checkout #order_review_heading,
+    .woocommerce-checkout #order_review {
+        width: 100% !important;
+        float: none !important;
+    }
+
+    .woocommerce-checkout .form-row-first,
+    .woocommerce-checkout .form-row-last {
+        width: 100% !important;
+        float: none !important;
+        margin-right: 0 !important;
+    }
+
+    .woocommerce-checkout #customer_details {
+        border-top: 2px solid var(--ca-gris-borde) !important;
+        padding-top: 20px !important;
+        margin-top: 8px !important;
+    }
+
+    table.woocommerce-checkout-review-order-table {
+        width: 100% !important;
+        table-layout: fixed !important;
+        word-break: break-word !important;
+    }
+
+    table.woocommerce-checkout-review-order-table td,
+    table.woocommerce-checkout-review-order-table th {
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+    }
+
+    table.woocommerce-checkout-review-order-table td.product-name,
+    table.woocommerce-checkout-review-order-table th.product-name {
+        width: 65% !important;
+    }
+
+    table.woocommerce-checkout-review-order-table td.product-total,
+    table.woocommerce-checkout-review-order-table th.product-total {
+        width: 35% !important;
+        text-align: right !important;
+    }
+}
+
+
+/* ==========================================================================
+   15. FIX PRODUCTOS RELACIONADOS — Evitar texto vertical
+   
+   Este fix es más liviano y no interfiere con el layout de Woodmart
+   ========================================================================== */
+
+/* Slides del carrusel - ancho mínimo */
+.single-product .related .swiper-slide,
+.single-product .up-sells .swiper-slide,
+.single-product .cross-sells .swiper-slide,
+.single-product .related .owl-item,
+.single-product .up-sells .owl-item,
+.single-product .cross-sells .owl-item {
+    min-width: 200px !important;
+}
+
+/* Contenido de la tarjeta - ancho completo */
+.single-product .related .product-element-bottom,
+.single-product .up-sells .product-element-bottom,
+.single-product .cross-sells .product-element-bottom {
+    width: 100% !important;
+}
+
+/* Título - escritura horizontal */
+.single-product .related .wd-entities-title,
+.single-product .related h3.wd-entities-title,
+.single-product .up-sells .wd-entities-title,
+.single-product .cross-sells .wd-entities-title {
+    writing-mode: horizontal-tb !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    width: 100% !important;
+    display: block !important;
+}
+
+/* Link del título */
+.single-product .related .wd-entities-title a,
+.single-product .up-sells .wd-entities-title a,
+.single-product .cross-sells .wd-entities-title a {
+    display: block !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+}
+
+/* Precio */
+.single-product .related .price,
+.single-product .up-sells .price,
+.single-product .cross-sells .price {
+    writing-mode: horizontal-tb !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+/* Categoría y marca */
+.single-product .related .wd-product-cats,
+.single-product .related .wd-product-brands-links,
+.single-product .up-sells .wd-product-cats,
+.single-product .cross-sells .wd-product-cats {
+    writing-mode: horizontal-tb !important;
+    display: block !important;
+}
+
+/* Mobile - slides más pequeños */
+@media (max-width: 768px) {
+    .single-product .related .swiper-slide,
+    .single-product .related .owl-item {
+        min-width: 150px !important;
+    }
+    
+    .single-product .related .wd-entities-title {
+        font-size: 12px !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   PARCHE COLIHUE AVENTURA v5 — FINAL
+   
+   Borrar CUALQUIER parche anterior. Pegar SOLO ESTE al final del CSS.
+   
+   Fix 1: Círculos marquee iOS + animaciones
+   Fix 2: Botones carrito en carruseles — tamaño reducido
+   Fix 3: Precio cortado en PC — más padding en tarjetas de carrusel
+   Fix 4: Catálogo mobile — botón menos invasivo + menos naranja
+   Fix 5: Relacionados mobile — botón que sobresale a la derecha
+   Fix 6: Burbuja ChatBot.com — subir en mobile
+   ========================================================================== */
+
+
+/* ==========================================================================
+   FIX 1: CÍRCULOS DEL MARQUEE — iOS Safari + animaciones
+   ========================================================================== */
+
+.pe-circle {
+    -webkit-clip-path: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
+    isolation: isolate;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    overflow: hidden !important;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.pe-circle img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    display: block !important;
+    border-radius: 0 !important;
+    filter: none !important;
+}
+
+.pe-rifle-card .pe-circle {
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
+}
+
+.pe-rifle-card:hover .pe-circle,
+.pe-rifle-card:active .pe-circle {
+    transform: scale(1.1) !important;
+    border-color: var(--ca-blanco) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 1), 0 0 25px rgba(255, 102, 0, 0.6) !important;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.8));
+}
+
+.pe-rifle-card:hover .pe-circle img,
+.pe-rifle-card:active .pe-circle img {
+    transform: scale(1.15) rotate(3deg) !important;
+}
+
+.pe-rifle-card:hover .pe-rifle-name,
+.pe-rifle-card:active .pe-rifle-name {
+    color: var(--ca-naranja) !important;
+}
+
+@media (max-width: 768px) {
+    .pe-circle {
+        -webkit-clip-path: circle(50% at 50% 50%);
+        clip-path: circle(50% at 50% 50%);
+        -webkit-mask-image: radial-gradient(circle, #000 69%, transparent 70%);
+        mask-image: radial-gradient(circle, #000 69%, transparent 70%);
+    }
+}
+
+
+/* ==========================================================================
+   FIX 2: BOTONES EN CARRUSELES — Tamaño reducido (desktop + mobile)
+   ========================================================================== */
+
+/* Carruseles home */
+.wd-carousel .product-grid-item .add_to_cart_button,
+.wd-carousel .product-grid-item .product_type_variable,
+.wd-carousel .product-grid-item .product_type_grouped,
+.wd-carousel .wd-product .add_to_cart_button,
+.wd-carousel .wd-product .product_type_variable,
+.wd-carousel .wd-product .product_type_grouped,
+.owl-carousel .product-grid-item .add_to_cart_button,
+.owl-carousel .product-grid-item .product_type_variable,
+.owl-carousel .wd-product .add_to_cart_button,
+.owl-carousel .wd-product .product_type_variable,
+.swiper .product-grid-item .add_to_cart_button,
+.swiper .product-grid-item .product_type_variable,
+.swiper .wd-product .add_to_cart_button,
+.swiper .wd-product .product_type_variable {
+    padding: 7px 12px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.3px !important;
+    white-space: nowrap !important;
+}
+
+/* Relacionados / Up-sells */
+.single-product .related .add_to_cart_button,
+.single-product .related .product_type_variable,
+.single-product .up-sells .add_to_cart_button,
+.single-product .up-sells .product_type_variable,
+.single-product .cross-sells .add_to_cart_button,
+.single-product .cross-sells .product_type_variable {
+    padding: 7px 12px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.3px !important;
+    white-space: nowrap !important;
+}
+
+@media (max-width: 768px) {
+    .wd-carousel .product-grid-item .add_to_cart_button,
+    .wd-carousel .product-grid-item .product_type_variable,
+    .wd-carousel .wd-product .add_to_cart_button,
+    .wd-carousel .wd-product .product_type_variable,
+    .owl-carousel .product-grid-item .add_to_cart_button,
+    .owl-carousel .product-grid-item .product_type_variable,
+    .owl-carousel .wd-product .add_to_cart_button,
+    .owl-carousel .wd-product .product_type_variable,
+    .swiper .product-grid-item .add_to_cart_button,
+    .swiper .product-grid-item .product_type_variable,
+    .swiper .wd-product .add_to_cart_button,
+    .swiper .wd-product .product_type_variable,
+    .single-product .related .add_to_cart_button,
+    .single-product .related .product_type_variable,
+    .single-product .up-sells .add_to_cart_button,
+    .single-product .up-sells .product_type_variable,
+    .single-product .cross-sells .add_to_cart_button,
+    .single-product .cross-sells .product_type_variable {
+        padding: 6px 10px !important;
+        font-size: 10px !important;
+    }
+}
+
+
+/* ==========================================================================
+   FIX 3: PRECIO CORTADO EN PC — Carruseles
+   
+   El carrusel de Woodmart calcula la altura con JS y después pone
+   overflow:hidden. No sirve agregar padding porque el padre recorta.
+   
+   Solución: REDUCIR la altura total del contenido para que quepa.
+   Se compactan márgenes, padding y tamaños dentro del carrusel.
+   ========================================================================== */
+
+/* Tarjetas en carruseles: menos padding general para ganar espacio */
+.wd-carousel .product-grid-item,
+.wd-carousel .wd-product {
+    padding: 12px !important;
+}
+
+/* Título: menos margen arriba */
+.wd-carousel .product-grid-item .wd-entities-title,
+.wd-carousel .wd-product .wd-entities-title {
+    margin-top: 8px !important;
+    margin-bottom: 2px !important;
+    font-size: 13px !important;
+}
+
+/* Categoría: compactar */
+.wd-carousel .product-grid-item .wd-product-cats,
+.wd-carousel .wd-product .wd-product-cats {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    line-height: 1.2 !important;
+}
+
+/* Precio: más compacto, sin margin-top excesivo */
+.wd-carousel .product-grid-item .price,
+.wd-carousel .wd-product .price {
+    font-size: 15px !important;
+    margin-top: 4px !important;
+    margin-bottom: 6px !important;
+    line-height: 1.2 !important;
+}
+
+/* Precio tachado dentro de carruseles */
+.wd-carousel .product-grid-item .price del,
+.wd-carousel .wd-product .price del {
+    font-size: 12px !important;
+}
+
+/* Botón: ya está reducido en Fix 2, solo asegurar margin compacto */
+.wd-carousel .product-grid-item .add_to_cart_button,
+.wd-carousel .product-grid-item .product_type_variable,
+.wd-carousel .wd-product .add_to_cart_button,
+.wd-carousel .wd-product .product_type_variable {
+    margin-top: 4px !important;
+    margin-bottom: 0 !important;
+}
+
+/* ── Relacionados desktop — misma estrategia ── */
+.single-product .related .product-grid-item,
+.single-product .related .wd-product,
+.single-product .up-sells .product-grid-item,
+.single-product .up-sells .wd-product {
+    padding: 12px !important;
+}
+
+.single-product .related .wd-entities-title,
+.single-product .up-sells .wd-entities-title {
+    margin-top: 8px !important;
+    margin-bottom: 2px !important;
+}
+
+.single-product .related .price,
+.single-product .up-sells .price,
+.single-product .cross-sells .price {
+    font-size: 15px !important;
+    margin-top: 4px !important;
+    margin-bottom: 6px !important;
+    line-height: 1.2 !important;
+}
+
+
+/* ==========================================================================
+   FIX 3b: IMÁGENES DE PRODUCTO MUY CHICAS EN MOBILE
+   
+   Las imágenes en carruseles (home y relacionados) se muestran
+   como cuadraditos chicos. El problema es que el contenedor
+   .product-image-link tiene altura colapsada en mobile.
+   Se le da un aspect-ratio para que mantenga proporción.
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    /* Contenedor de imagen en TODOS los productos mobile */
+    .product-grid-item .product-image-link,
+    .wd-product .product-image-link {
+        display: block !important;
+        width: 100% !important;
+        min-height: 0 !important;
+        height: auto !important;
+        aspect-ratio: 1 / 1 !important;
+        overflow: hidden !important;
+        border-radius: 8px !important;
+    }
+
+    /* Imagen: llenar el contenedor completo */
+    .product-grid-item .product-image-link img,
+    .wd-product .product-image-link img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+        object-position: center center !important;
+        display: block !important;
+    }
+
+    /* Contenedor de imagen dentro de carruseles de home */
+    body.home .wd-carousel .product-image-link {
+        aspect-ratio: 1 / 1 !important;
+    }
+
+    body.home .wd-carousel .product-image-link img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+    }
+
+    /* Relacionados: misma corrección */
+    .single-product .related .product-image-link,
+    .single-product .up-sells .product-image-link,
+    .single-product .cross-sells .product-image-link {
+        aspect-ratio: 1 / 1 !important;
+    }
+
+    .single-product .related .product-image-link img,
+    .single-product .up-sells .product-image-link img,
+    .single-product .cross-sells .product-image-link img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+    }
+}
+
+
+/* ==========================================================================
+   FIX 4: CATÁLOGO MOBILE — Menos naranja, botón más sutil
+   
+   Problema: demasiado borde naranja en las tarjetas y botón grande.
+   Solo aplica en mobile. NO toca layout ni estructura.
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    /* Tarjetas de producto: borde más sutil, menos agresivo */
+    .product-grid-item,
+    .wd-product {
+        border-color: #222 !important;
+    }
+
+    /* Quitar la línea naranja de arriba en mobile */
+    .product-grid-item::before,
+    .wd-product::before {
+        display: none !important;
+    }
+
+    /* Botones de carrito en mobile: borde más fino, menos invasivo */
+    .product-grid-item .add_to_cart_button,
+    .product-grid-item .product_type_variable,
+    .wd-product .add_to_cart_button,
+    .wd-product .product_type_variable {
+        border-width: 1px !important;
+        padding: 8px 14px !important;
+        font-size: 11px !important;
+    }
+}
+
+
+/* ==========================================================================
+   FIX 5: RELACIONADOS MOBILE — Botón que sobresale a la derecha
+   
+   El botón se sale del ancho de la tarjeta. Se limita con
+   max-width y box-sizing.
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    /* Forzar que todo el contenido respete el ancho de la tarjeta */
+    .single-product .related .product-element-bottom,
+    .single-product .up-sells .product-element-bottom,
+    .single-product .cross-sells .product-element-bottom {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 0 4px !important;
+    }
+
+    .single-product .related .add_to_cart_button,
+    .single-product .related .product_type_variable,
+    .single-product .up-sells .add_to_cart_button,
+    .single-product .up-sells .product_type_variable,
+    .single-product .cross-sells .add_to_cart_button,
+    .single-product .cross-sells .product_type_variable {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        padding: 6px 8px !important;
+        font-size: 9px !important;
+        margin: 6px 0 0 0 !important;
+    }
+
+    /* Imagen más visible en relacionados */
+    .single-product .related .product-image-link,
+    .single-product .up-sells .product-image-link,
+    .single-product .cross-sells .product-image-link {
+        min-height: 120px !important;
+    }
+
+    .single-product .related .product-image-link img,
+    .single-product .up-sells .product-image-link img,
+    .single-product .cross-sells .product-image-link img {
+        width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
+
+    /* Título y precio en relacionados */
+    .single-product .related .wd-entities-title,
+    .single-product .up-sells .wd-entities-title,
+    .single-product .cross-sells .wd-entities-title {
+        font-size: 11px !important;
+        margin-top: 6px !important;
+    }
+
+    .single-product .related .price,
+    .single-product .up-sells .price,
+    .single-product .cross-sells .price {
+        font-size: 12px !important;
+        margin: 4px 0 !important;
+    }
+}
+
+
+/* ==========================================================================
+   FIX 6: BURBUJA CHATBOT.COM — Subir en mobile
+   
+   ChatBot.com usa OpenWidget. El contenedor es #openwidget-container
+   o iframes con id que contiene "openwidget" o "chatbot".
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    /* OpenWidget (ChatBot.com) — contenedor principal */
+    #openwidget-container,
+    #openwidget-container iframe,
+    [id*="openwidget"],
+    /* ChatBot.com iframe directo */
+    iframe[title*="chat" i],
+    iframe[title*="ChatBot" i],
+    iframe[id*="chatbot" i],
+    iframe[id*="chat-widget" i],
+    /* Contenedor genérico de ChatBot.com */
+    .openwidget-chat,
+    .openwidget-chat-widget,
+    #chatbot-chat-widget-container,
+    #chatbot-chat-widget-button,
+    /* Fallback: cualquier div fijo en esquina inferior izquierda con z-index alto */
+    div[style*="position: fixed"][style*="bottom"][style*="left"][style*="z-index: 99"] {
+        bottom: 70px !important;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   COLIHUE AVENTURA - MOBILE MEJORAS v5.0 FRESH
+   
+   Escrito desde cero. No se basa en versiones anteriores.
+   Pegar al final del CSS maestro original.
+   
+   NO toca: fondo, imagenes, overflow, display de productos.
+   ========================================================================== */
+
+
+/* ------------------------------------------------------------------
+   BALIN: Reactivar la animacion en mobile
+   El CSS maestro lo oculta con display:none en max-width:768px.
+   Lo mostramos de vuelta, mas chico.
+   ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+    .pe-container {
+        display: block !important;
+        height: 30px !important;
+        margin: 10px 0 !important;
+    }
+    .pe-trail-flames {
+        width: 80px !important;
+    }
+    .pe-skirt {
+        width: 10px !important;
+        height: 13px !important;
+    }
+    .pe-waist {
+        width: 3px !important;
+        height: 8px !important;
+    }
+    .pe-head {
+        width: 7px !important;
+        height: 13px !important;
+    }
+}
+
+
+/* ------------------------------------------------------------------
+   CATALOGO: 2 productos por fila
+   Woodmart usa flexbox en .products. En vez de forzar display:grid
+   (que rompe Safari), cambiamos el ancho de cada item a ~48%.
+   ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+    .archive .products,
+    .post-type-archive-product .products,
+    .tax-product_cat .products {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        padding: 0 8px !important;
+    }
+
+    .archive .products .product-grid-item,
+    .archive .products .wd-product,
+    .post-type-archive-product .products .product-grid-item,
+    .post-type-archive-product .products .wd-product,
+    .tax-product_cat .products .product-grid-item,
+    .tax-product_cat .products .wd-product {
+        width: calc(50% - 5px) !important;
+        max-width: calc(50% - 5px) !important;
+        float: none !important;
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Paginacion y loader: ancho completo */
+    .archive .products .woocommerce-pagination,
+    .archive .products nav.woocommerce-pagination,
+    .archive .products .wd-shop-loader,
+    .post-type-archive-product .products .woocommerce-pagination,
+    .tax-product_cat .products .woocommerce-pagination {
+        width: 100% !important;
+        flex-basis: 100% !important;
+    }
+
+    /* Titulo de producto en catalogo: 2 lineas max */
+    .archive .products .wd-entities-title,
+    .post-type-archive-product .products .wd-entities-title,
+    .tax-product_cat .products .wd-entities-title {
+        font-size: 11px !important;
+        line-height: 1.3 !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+    }
+
+    /* Precio en catalogo */
+    .archive .products .price,
+    .post-type-archive-product .products .price,
+    .tax-product_cat .products .price {
+        font-size: 13px !important;
+        font-weight: 800 !important;
+    }
+
+    /* Boton en catalogo: no desbordar */
+    .archive .products .add_to_cart_button,
+    .archive .products .product_type_variable,
+    .post-type-archive-product .products .add_to_cart_button,
+    .post-type-archive-product .products .product_type_variable,
+    .tax-product_cat .products .add_to_cart_button,
+    .tax-product_cat .products .product_type_variable {
+        font-size: 9px !important;
+        padding: 6px 8px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        text-align: center !important;
+    }
+}
+
+
+/* ------------------------------------------------------------------
+   HOME: Botones del carrusel que se salen de la tarjeta
+   Solo limitamos el ancho del texto, no tocamos el contenedor.
+   ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+    body.home .wd-carousel .product-element-bottom {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+    }
+
+    body.home .wd-carousel .add_to_cart_button,
+    body.home .wd-carousel .product_type_variable {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    /* Titulos de secciones */
+    body.home .wd-section-title,
+    body.home .woodmart-title-container .title,
+    body.home .title-wrapper .title {
+        font-size: 16px !important;
+        letter-spacing: 1.5px !important;
+    }
+
+    /* Circulos marquee un poco mas chicos */
+    body.home .pe-circle {
+        width: 88px !important;
+        height: 88px !important;
+    }
+    body.home .pe-rifle-card {
+        flex: 0 0 98px !important;
+    }
+    body.home .pe-rifle-name {
+        font-size: 10px !important;
+    }
+    body.home .pe-lupa-track {
+        gap: 24px !important;
+    }
+}
+
+
+/* ------------------------------------------------------------------
+   PRODUCTO INDIVIDUAL: Texto mas compacto
+   No tocamos layout, form.cart, ni imagenes.
+   ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+    .single-product .product-title,
+    .single-product .product_title,
+    .single-product h1.product_title {
+        font-size: 20px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 8px !important;
+    }
+
+    .single-product > .product > .summary .price,
+    .single-product .product-summary .price,
+    .single-product .entry-summary .price {
+        font-size: 26px !important;
+        margin-bottom: 12px !important;
+    }
+
+    .single-product .entry-summary .price del {
+        font-size: 16px !important;
+    }
+
+    .single-product .woocommerce-product-details__short-description {
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+    }
+
+    .single-product .single_add_to_cart_button {
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+        border-radius: 8px !important;
+    }
+
+    .single-product .product_meta {
+        font-size: 11px !important;
+    }
+
+    /* Tabs texto */
+    .single-product .woocommerce-Tabs-panel p,
+    .single-product .wc-tab p {
+        font-size: 13px !important;
+        line-height: 1.6 !important;
+        color: #aaa !important;
+    }
+
+    .single-product .woocommerce-Tabs-panel h2,
+    .single-product .woocommerce-Tabs-panel h3 {
+        font-size: 16px !important;
+        color: #e0e0e0 !important;
+    }
+}
+
+
+/* ------------------------------------------------------------------
+   RELACIONADOS: Titulo arriba (no al costado)
+   Woodmart usa flex-row. Forzamos flex-direction:column.
+   ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+    .single-product .related,
+    .single-product .up-sells,
+    .single-product section.related,
+    .single-product section.up-sells {
+        display: flex !important;
+        flex-direction: column !important;
+        margin-top: 20px !important;
+        padding-top: 16px !important;
+        border-top: 1px solid rgba(255,255,255,0.05) !important;
+    }
+
+    .single-product .related > h2,
+    .single-product .related .wd-section-title,
+    .single-product .up-sells > h2,
+    .single-product .up-sells .wd-section-title {
+        width: 100% !important;
+        order: -1 !important;
+        font-size: 15px !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 2px !important;
+        color: #fff !important;
+        margin-bottom: 14px !important;
+        padding-bottom: 10px !important;
+        border-bottom: 1px solid rgba(255, 102, 0, 0.2) !important;
+        writing-mode: horizontal-tb !important;
+    }
+
+    .single-product .related .wd-carousel-container,
+    .single-product .related .wd-carousel,
+    .single-product .related > div,
+    .single-product .up-sells .wd-carousel-container,
+    .single-product .up-sells .wd-carousel,
+    .single-product .up-sells > div {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .single-product .related .add_to_cart_button,
+    .single-product .related .product_type_variable,
+    .single-product .up-sells .add_to_cart_button,
+    .single-product .up-sells .product_type_variable {
+        font-size: 9px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+
+/* ------------------------------------------------------------------
+   BURBUJAS: Chatbot naranja + WhatsApp verde
+   Subir por encima de la barra inferior de WoodMart.
+   Refuerza el FIX 6 del CSS maestro y agrega WhatsApp.
+   ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+
+    /* Chatbot OpenWidget - reforzar con mas especificidad */
+    html body #openwidget-container,
+    html body #openwidget-container iframe,
+    html body [id*="openwidget"],
+    html body iframe[title*="chat" i],
+    html body iframe[title*="ChatBot" i],
+    html body iframe[id*="chatbot" i],
+    html body iframe[id*="chat-widget" i],
+    html body .openwidget-chat,
+    html body .openwidget-chat-widget,
+    html body #chatbot-chat-widget-container,
+    html body #chatbot-chat-widget-button {
+        bottom: 75px !important;
+    }
+
+    /* WhatsApp - JoinChat y otros plugins comunes */
+    html body .joinchat,
+    html body #joinchat,
+    html body [class*="joinchat"],
+    html body .whatsapp-button,
+    html body [class*="wa-float"],
+    html body [class*="whatsapp-float"],
+    html body a.whatsapp-button {
+        bottom: 75px !important;
+    }
+}
+
+
+/* ------------------------------------------------------------------
+   BARRA INFERIOR: Estilo + calculadora SVG
+   ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+    .wd-toolbar,
+    .wd-sticky-toolbar {
+        background: rgba(6, 6, 6, 0.97) !important;
+        border-top: 1px solid rgba(255,255,255,0.06) !important;
+        box-shadow: 0 -3px 20px rgba(0,0,0,0.6) !important;
+    }
+
+    /* Ocultar el ::before de woodmart en nuestro boton */
+    .wd-toolbar .ca-toolbar-calc .wd-tools-icon::before {
+        display: none !important;
+    }
+
+    .wd-toolbar .ca-toolbar-calc .wd-tools-icon {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .wd-toolbar .ca-toolbar-calc .wd-tools-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Sticky add to cart */
+    .single-product .wd-sticky-btn,
+    .single-product .wd-sticky-add-to-cart {
+        background: rgba(8, 8, 8, 0.97) !important;
+        border-top: 1px solid rgba(255, 102, 0, 0.15) !important;
+    }
+}
+
+
+/* ------------------------------------------------------------------
+   HEADER: Detalle naranja sutil
+   ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+    .whb-main-header {
+        border-bottom: 1px solid rgba(255, 102, 0, 0.12) !important;
+    }
+
+    .whb-main-header .site-logo img,
+    .whb-main-header .wd-logo img {
+        max-height: 48px !important;
+    }
+}
+
+
+/* ------------------------------------------------------------------
+   FOOTER: Mas compacto
+   ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+    .footer-container .vc_column_container {
+        margin-bottom: 20px !important;
+    }
+
+    .vendedores-footer a {
+        font-size: 15px !important;
+    }
+
+    .lista-enlaces a {
+        font-size: 14px !important;
+    }
+
+    .footer-container .wpb_heading,
+    .footer-container .widget-title,
+    .footer-container h4 {
+        font-size: 15px !important;
+        margin-bottom: 14px !important;
+    }
+}
+
+
+/* ------------------------------------------------------------------
+   FIN v5.0
+   ------------------------------------------------------------------ */
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------------------------
+   FIX: Overlay buscador Woodmart — Nuclear
+   ------------------------------------------------------------------ */
+
+/* Todos los posibles overlays de Woodmart */
+.wd-overlay,
+.wd-close-side,
+.wd-search-full-screen-overlay,
+.wd-dropdown-bg,
+.whb-row::before,
+.whb-row::after,
+.whb-main-header::before,
+.whb-main-header::after,
+.wd-header-search-form::before,
+.wd-header-search-form::after,
+.wd-search-full-screen::before,
+.wd-search-full-screen::after,
+[class*="wd-search"]::before,
+[class*="wd-search"]::after {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    background: none !important;
+    width: 0 !important;
+    height: 0 !important;
+}
+
